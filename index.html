@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harshita</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+    }
+
+    /* ====== TEXT SECTION ====== */
+    .text-section {
+      min-height: 40vh; /* less height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-text {
+      font-size: 2rem;
+      font-weight: bold;
+      color: yellow;
+      padding: 15px 25px;
+      border: 3px solid white;
+      border-radius: 10px;
+      text-shadow: 0 0 8px yellow, 0 0 15px orange;
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+      max-width: 90%;
+    }
+
+    /* ====== CAROUSEL SECTION ====== */
+    .carousel {
+      position: relative;
+      min-height: 100px; /* smaller carousel height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin: 30px auto;
+    }
+
+    .carousel img {
+      max-width: 900px;   /* limit image width */
+      max-height: 400px;  /* limit image height */
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(255,255,255,0.3);
+      display: none;
+    }
+
+    .carousel img.active {
+      display: block;
+    }
+
+    /* Arrows */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      font-weight: bold;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      padding: 8px 12px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 5px;
+    }
+
+    .arrow.left {
+      left: 10px;
+    }
+
+    .arrow.right {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Text Section -->
+  <div class="text-section">
+    <div class="hero-text">
+      Harshita is the most beautiful woman in the whole universe
+    </div>
+  </div>
+
+  <!-- Carousel Section -->
+  <div class="carousel">
+    <span class="arrow left" onclick="prevSlide()">&#10094;</span>
+    <img src="IMG_2942.JPG" class="active" alt="Harshita 1">
+    <img src="WhatsApp Image 2025-09-14 at 8.53.48 PM.jpeg" alt="Harshita 2">
+    <span class="arrow right" onclick="nextSlide()">&#10095;</span>
+  </div>
+
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.carousel img');
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    // Auto-slide every 4 seconds
+    setInterval(nextSlide, 4000);
+  </script>
+</body>
+</html>
