@@ -19,7 +19,7 @@
 
     /* ====== TEXT SECTION ====== */
     .text-section {
-      min-height: 40vh; /* less height */
+      min-height: 40vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -27,7 +27,7 @@
     }
 
     .hero-text {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
       color: yellow;
       padding: 15px 25px;
@@ -35,30 +35,41 @@
       border-radius: 10px;
       text-shadow: 0 0 8px yellow, 0 0 15px orange;
       box-shadow: 0 0 15px rgba(255,255,255,0.5);
-      max-width: 90%;
+      max-width: 95%;
     }
 
     /* ====== CAROUSEL SECTION ====== */
     .carousel {
       position: relative;
-      min-height: 100px; /* smaller carousel height */
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
       margin: 30px auto;
+      max-width: 900px;
+      height: 400px;
+      border-radius: 12px;
+      background: #000;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
     }
 
     .carousel img {
-      max-width: 900px;   /* limit image width */
-      max-height: 400px;  /* limit image height */
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* show full image without cropping */
       border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(255,255,255,0.3);
-      display: none;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity 1s ease-in-out;
+      background-color: #000; /* black background for transparent spaces */
     }
 
     .carousel img.active {
-      display: block;
+      opacity: 1;
+      position: relative;
+      z-index: 2;
     }
 
     /* Arrows */
@@ -66,14 +77,19 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 2rem;
-      font-weight: bold;
-      background: rgba(0,0,0,0.5);
+      font-size: 1.8rem;
+      background: rgba(0,0,0,0.6);
       color: white;
       padding: 8px 12px;
       cursor: pointer;
       user-select: none;
       border-radius: 5px;
+      z-index: 3;
+      transition: background 0.3s;
+    }
+
+    .arrow:hover {
+      background: rgba(255,255,255,0.3);
     }
 
     .arrow.left {
@@ -82,6 +98,18 @@
 
     .arrow.right {
       right: 10px;
+    }
+
+    /* For smaller screens */
+    @media (max-width: 768px) {
+      .carousel {
+        max-width: 90%;
+        height: 250px;
+      }
+      .hero-text {
+        font-size: 1.5rem;
+        padding: 10px 20px;
+      }
     }
   </style>
 </head>
@@ -96,8 +124,13 @@
   <!-- Carousel Section -->
   <div class="carousel">
     <span class="arrow left" onclick="prevSlide()">&#10094;</span>
+
     <img src="IMG_2942.JPG" class="active" alt="Harshita 1">
-    <img src="WhatsApp Image 2025-09-14 at 8.53.48 PM.jpeg" alt="Harshita 2">
+    <img src="IMG_6513.JPG" alt="Harshita 2">
+    <img src="IMG_9296 2.JPG" alt="Harshita 3">
+    <img src="102b9732-c34c-448b-b67f-87cf53ff34f1.JPG" alt="Harshita 4">
+    <img src="WhatsApp Image 2025-09-14 at 8.53.48 PM.jpeg" alt="Harshita 5">
+
     <span class="arrow right" onclick="nextSlide()">&#10095;</span>
   </div>
 
@@ -107,8 +140,7 @@
 
     function showSlide(index) {
       slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) slide.classList.add('active');
+        slide.classList.toggle('active', i === index);
       });
     }
 
